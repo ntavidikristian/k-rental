@@ -1,0 +1,92 @@
+{
+  "name": "k-rental",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "k-rental",
+  "sourceRoot": "apps/k-rental/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/k-rental",
+        "index": "apps/k-rental/src/index.html",
+        "browser": "apps/k-rental/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/k-rental/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/k-rental/src/favicon.ico", "apps/k-rental/src/assets"],
+        "styles": ["apps/k-rental/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/k-rental/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/k-rental/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "k-rental:build:production"
+        },
+        "development": {
+          "buildTarget": "k-rental:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "k-rental:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/k-rental/**/*.ts", "apps/k-rental/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/k-rental/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "k-rental:build",
+        "staticFilePath": "dist/apps/k-rental/browser"
+      }
+    }
+  }
+}

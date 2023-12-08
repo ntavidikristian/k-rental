@@ -1,0 +1,33 @@
+{
+  "name": "k-rental-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/k-rental-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/k-rental-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "k-rental:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "k-rental:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "k-rental:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/k-rental-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["k-rental"]
+}
