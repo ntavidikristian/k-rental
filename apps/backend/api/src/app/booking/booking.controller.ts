@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { Booking } from "./entities/booking.entity";
 import { BookingService } from "./booking.service";
 import { GetUser } from "../auth/decorators/get-user.decorator";
@@ -17,6 +17,11 @@ export class BookingController{
     @Post()
     async createBooking(@Body() request: CreateBookingDto, @GetUser() user: User): Promise<Booking>{
         return await this.bookingService.createBooking(request, user.agent);
+    }
+
+    @Get()
+    async getBookings(): Promise<Booking[]>{
+        return await this.bookingService.getBookings();
     }
 
 }

@@ -1,26 +1,56 @@
+import { ArrayNotEmpty, IsArray, IsDate, IsEmail, IsNotEmpty, ValidateNested} from 'class-validator';
+import { Type } from 'class-transformer';
 export class UserCredentials{
+
+  @IsNotEmpty()
+  @IsEmail()
   email: string;
+
+  @IsNotEmpty()
   password: string;
 }
 
 export class CreateCarManufacturerDto{
+
+  @IsNotEmpty()
   name: string;
 }
 export class CreateCarDto{
+
+  @IsNotEmpty()
   model: string;
+
+  @IsNotEmpty()
   manufacturerId: string;
+
+  @IsNotEmpty()
   mileage: string;
+
+  @IsNotEmpty()
   registrationYear: number;
+
+  @IsNotEmpty()
   manufactureYear?: number;
 }
 
-export interface BookingPeriod {
+export class BookingPeriod {
+  @IsNotEmpty()
   start: Date;
+
+  @IsNotEmpty()
   end: Date;
 }
-export interface CreateBookingDto{
+export class CreateBookingDto{
+  @IsNotEmpty({message: 'client is required'})
   clientId: string;
+  @IsNotEmpty({message: 'car is required'})
   carId: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @ArrayNotEmpty()
+  @Type(() => BookingPeriod)
   periods: BookingPeriod[];
 }
 
@@ -41,11 +71,14 @@ export enum BookingStatus{
 
 export class CreateCustomerDto {
   
+  @IsNotEmpty()
   name: string;
 
+  @IsDate()
   dateOfBirth?: Date;
-    
+
   nationality?: string;
 
+  @IsNotEmpty()
   licenceNo: string;
 }

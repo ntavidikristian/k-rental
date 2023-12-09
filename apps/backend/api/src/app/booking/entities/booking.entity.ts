@@ -34,7 +34,16 @@ export class Booking {
         default: BookingStatus.Pending,
     })
     status: BookingStatus;
-    // completedPeriods?: BookingPeriod[];
+
+    @Column({
+        type: 'jsonb',
+        transformer: {
+            from: val => val && JSON.parse(val),
+            to: val => val && JSON.stringify(val)
+        },
+        nullable: true
+    })
+    completedPeriods?: BookingPeriod[];
     @Column({
         nullable: true
     })
