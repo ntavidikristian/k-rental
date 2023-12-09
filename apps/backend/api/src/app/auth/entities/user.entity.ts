@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { BookingAgent } from './booking-agent.entity';
 
 @Entity()
 export class User {
@@ -10,4 +11,8 @@ export class User {
 
     @Column()
     password: string;
+
+    @OneToOne(() => BookingAgent)
+    @JoinColumn()
+    agent: BookingAgent
 }

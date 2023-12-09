@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Booking } from "../../booking/entities/booking.entity";
 import { CarManufacturer } from "./car-manufacturer.entity";
 
 @Entity()
@@ -17,6 +18,9 @@ export class Car{
 
     @Column()
     manufactureYear: number;
+
+    @OneToMany(_ => Booking, booking => booking.car)
+    bookings?: Booking[]
 
     @ManyToOne(_ => CarManufacturer, manufacturer => manufacturer.cars, { eager: true })
     manufacturer: CarManufacturer

@@ -7,21 +7,39 @@ import * as bcrypt from 'bcrypt';
 import { AuthToken, AuthTokenPayload } from "./models/auth-tokens";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
+import { BookingAgent } from "./entities/booking-agent.entity";
 
 @Injectable()
-export class AuthService{
+export class AuthService {
 
     constructor(
         @InjectRepository(User)
         private userRepo: Repository<User>,
+
+        @InjectRepository(BookingAgent)
+        private agentRepo: Repository<BookingAgent>,
+
         private jwtService: JwtService,
         private configService: ConfigService,
-    ){
-        
+    ) {
+
     }
 
 
-    private async createToken(user: {email: string}): Promise<AuthToken>{
+    public async getUserByEmail(email: string, params?:{ withAgent: boolean }): Promise<User> {
+
+        const { withAgent } = params ?? {};
+        return await this.userRepo.findOne({
+            where: {
+                email
+            },
+            relations: {
+                agent: !!withAgent
+            }
+        });
+    }
+
+    private async createToken(user: { email: string }): Promise<AuthToken> {
 
         const token: AuthTokenPayload = {
             email: user.email
@@ -36,43 +54,42 @@ export class AuthService{
         return {
             authToken
         }
-
-
     }
-    
-    async registerUser(userCredentials: UserCredentials): Promise<AuthToken>{
+
+    async registerUser(userCredentials: UserCredentials): Promise<AuthToken> {
         const { email, password } = userCredentials;
         const salt = await bcrypt.genSalt();
 
         const hashedPass = await bcrypt.hash(password, salt);
 
-
+        const agent = await this.agentRepo.create();
+        await this.agentRepo.save(agent);
         const user = await this.userRepo.create({
             email,
-            password: hashedPass
+            password: hashedPass,
+            agent
         });
 
-
-        await this.userRepo.save(user);
+        this.userRepo.save(user);
 
         return await this.createToken(user);
     }
 
 
-    async login(userCreds: UserCredentials): Promise<AuthToken>{
+    async login(userCreds: UserCredentials): Promise<AuthToken> {
         const { email, password } = userCreds;
 
-        const user = await this.userRepo.findOne({where: {
+        const user = await this.userRepo.findOneBy({
             email
-        }});
+        });
 
-        if(!user){
+        if (!user) {
             throw new UnauthorizedException();
         }
 
         const passwordsMatch = await bcrypt.compare(password, user.password);
 
-        if(!passwordsMatch){
+        if (!passwordsMatch) {
             throw new UnauthorizedException();
         }
 
@@ -81,5 +98,5 @@ export class AuthService{
 
 
 
-    
+
 }

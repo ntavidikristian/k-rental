@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { Car } from "./entities/car.entity";
 import { CarService } from "./car.service";
 import { CreateCarDto, CreateCarManufacturerDto } from "@k-rental/dtos";
 import { CarManufacturer } from "./entities/car-manufacturer.entity";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('car')
 export class CarController{
@@ -12,6 +13,7 @@ export class CarController{
     ){}
 
     @Get()
+    @UseGuards(AuthGuard())
     async getCars(): Promise<Car[]>{
         return await this.carService.getCars();
     }

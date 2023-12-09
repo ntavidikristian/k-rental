@@ -63,19 +63,28 @@ export class CarService{
             registrationYear
         })
 
-        
-
-        console.log({
-            car,
-            manufacturer
-        })
         await this.carRepository.save(car);
 
         return car;
     }
 
+    async getCarById(id: string, params?:{silent?: boolean}): Promise<Car>{
+        const { silent } = params ?? {};
+        const car = await this.carRepository.findOne({
+            where:{
+                id
+            }
+        })
+
+        if(!car && !silent){
+            throw new NotFoundException();
+        }
+
+        return car;
+    }
+
     async getCars(): Promise<Car[]>{
-        return this.carRepository.find();
+        return await this.carRepository.find();
     }
 
 

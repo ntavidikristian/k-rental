@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { envSchema} from './../../env-schema';
 import { AuthModule } from './auth/auth.module';
 import { CarModule } from './car/car.module';
+import { BookingModule } from './booking/booking.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { CarModule } from './car/car.module';
 
     AuthModule,
     CarModule,
+    BookingModule,
   ],
 })
 export class AppModule {}
