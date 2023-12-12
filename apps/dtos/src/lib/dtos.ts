@@ -1,5 +1,5 @@
-import { ArrayNotEmpty, IsArray, IsDate, IsEmail, IsNotEmpty, ValidateNested} from 'class-validator';
 import { Type } from 'class-transformer';
+import { ArrayNotEmpty, IsArray, IsDate, IsEmail, IsNotEmpty, ValidateNested } from 'class-validator';
 export class UserCredentials{
 
   @IsNotEmpty()
@@ -34,10 +34,13 @@ export class CreateCarDto{
 }
 
 export class BookingPeriod {
-  @IsNotEmpty()
+
+  @Type(() => Date)
+  @IsDate()
   start: Date;
 
-  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
   end: Date;
 }
 export class CreateBookingDto{

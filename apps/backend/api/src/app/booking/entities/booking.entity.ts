@@ -21,10 +21,6 @@ export class Booking {
 
     @Column({
         type: 'jsonb',
-        transformer: {
-            from: val => JSON.parse(val),
-            to: val => JSON.stringify(val)
-        }
     })
     periods: BookingPeriod[];
 
@@ -37,10 +33,6 @@ export class Booking {
 
     @Column({
         type: 'jsonb',
-        transformer: {
-            from: val => val && JSON.parse(val),
-            to: val => val && JSON.stringify(val)
-        },
         nullable: true
     })
     completedPeriods?: BookingPeriod[];
