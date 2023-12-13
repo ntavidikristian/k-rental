@@ -1,4 +1,4 @@
-import { CreateCarDto, CreateCarManufacturerDto } from "@k-rental/dtos";
+import { CarFilter, CreateCarDto, CreateCarManufacturerDto } from "@k-rental/dtos";
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { Car } from "./entities/car.entity";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -83,8 +83,23 @@ export class CarService{
         return car;
     }
 
-    async getCars(): Promise<Car[]>{
-        return await this.carRepository.find();
+    async getCars(filter?: CarFilter): Promise<Car[]>{
+
+        const { manufacturer, model }  = filter ?? {};
+
+        const query = this.carRepository.createQueryBuilder('car');
+        query.leftJoinAndSelect('car.manufacturer', 'manufacturer');
+
+
+        if(model){
+            query.andWhere('(LOWER(car.model) LIKE LOWER(:model))', { model: `%${model}%` })
+        }
+
+        if(manufacturer){
+            query.andWhere('(LOWER(manufacturer.name ) LIKE LOWER(:manufacturer))', {manufacturer: `%${manufacturer}%`})
+        }
+
+        return await query.getMany();
     }
 
 

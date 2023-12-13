@@ -1,4 +1,4 @@
-import { BookingPeriod, BookingStatus, CreateBookingDto } from "@k-rental/dtos";
+import { BookingFilter, BookingPeriod, BookingStatus, CreateBookingDto } from "@k-rental/dtos";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -112,8 +112,53 @@ export class BookingService{
         return booking;
     }
 
-    async getBookings(): Promise<Booking[]>{
-        return await this.bookingRepository.find();
+    async getBookings(filter?: BookingFilter): Promise<Booking[]>{
+
+        const { carModel, clientName, period, status } = filter ?? {};
+
+        const query = this.bookingRepository.createQueryBuilder('booking');
+        query.leftJoinAndSelect('booking.car', 'car')
+        query.leftJoinAndSelect('booking.customer', 'customer');
+
+        if(period){
+            if(!this.periodIsValid(period)){
+                throw new BadRequestException('Invalid period');
+            }
+
+            const { end, start } = period;
+
+            query.andWhere(`
+                (booking.id IN 
+                    (
+                        SELECT b.id as id
+                        FROM booking b, jsonb_array_elements(b.periods) period
+                        WHERE NOT(
+                            ((period::jsonb->>'end')::timestamp <= :startDate)
+                            OR 
+                            ((period::jsonb->>'start')::timestamp >= :endDate)
+                        )
+                    )
+                )`
+                ,{
+                    startDate: start.toJSON(),
+                    endDate: end.toJSON()
+                }
+            )
+        }
+
+        if(carModel){
+            query.andWhere('(LOWER(car.model) LIKE LOWER(:carModel))', {carModel: `%${carModel}%`})
+        }
+
+        if(clientName){
+            query.andWhere('(LOWER(customer.name) LIKE LOWER(:clientName))', {clientName: `%${clientName}%`})
+        }
+
+        if(status){
+            query.andWhere({status});
+        }
+
+        return await query.getMany();
     }
 
 

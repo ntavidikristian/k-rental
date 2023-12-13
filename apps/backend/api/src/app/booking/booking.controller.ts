@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
 import { Booking } from "./entities/booking.entity";
 import { BookingService } from "./booking.service";
 import { GetUser } from "../auth/decorators/get-user.decorator";
 import { User } from "../auth/entities/user.entity";
 import { AuthGuard } from "@nestjs/passport";
-import { CreateBookingDto } from "@k-rental/dtos";
+import { BookingFilter, CreateBookingDto } from "@k-rental/dtos";
 
 @Controller('booking')
 export class BookingController{
@@ -20,8 +20,8 @@ export class BookingController{
     }
 
     @Get()
-    async getBookings(): Promise<Booking[]>{
-        return await this.bookingService.getBookings();
+    async getBookings(@Query() filter: BookingFilter): Promise<Booking[]>{
+        return await this.bookingService.getBookings(filter);
     }
 
 }
