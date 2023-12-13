@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { UserCredentials } from "@k-rental/dtos";
+import { AuthToken, UserCredentials } from "@k-rental/dtos";
 import { Repository } from "typeorm";
 import { User } from "./entities/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as bcrypt from 'bcrypt';
-import { AuthToken, AuthTokenPayload } from "./models/auth-tokens";
+import { AuthTokenPayload } from "./models/auth-tokens";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
 import { BookingAgent } from "./entities/booking-agent.entity";

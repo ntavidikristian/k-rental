@@ -4,8 +4,12 @@ export class UserCredentials {
 
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsNotEmpty()
-  password: string;
+  password!: string;
+}
+
+export interface AuthToken{
+  authToken: string;
 }

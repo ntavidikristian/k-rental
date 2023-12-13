@@ -1,6 +1,5 @@
-import { UserCredentials } from "@k-rental/dtos";
+import { AuthToken, UserCredentials } from "@k-rental/dtos";
 import { Body, Controller, Post } from "@nestjs/common";
-import { AuthToken } from "./models/auth-tokens";
 import { AuthService } from "./auth.service";
 
 @Controller('auth')

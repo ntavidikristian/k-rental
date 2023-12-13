@@ -20,11 +20,11 @@ export class BookingPeriod {
 
   @Type(() => Date)
   @IsDate()
-  start: Date;
+  start!: Date;
 
   @Type(() => Date)
   @IsDate()
-  end: Date;
+  end!: Date;
 }
 
 
@@ -51,16 +51,16 @@ export class BookingFilter{
 
 export class CreateBookingDto {
   @IsNotEmpty({ message: 'client is required' })
-  clientId: string;
+  clientId!: string;
   @IsNotEmpty({ message: 'car is required' })
-  carId: string;
+  carId!: string;
 
   @IsNotEmpty()
   @IsArray()
   @ValidateNested({ each: true })
   @ArrayNotEmpty()
   @Type(() => BookingPeriod)
-  periods: BookingPeriod[];
+  periods!: BookingPeriod[];
 }
 
 export class CustomerFilter{
@@ -75,7 +75,7 @@ export class CustomerFilter{
 export class CreateCustomerDto {
 
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsDate()
   dateOfBirth?: Date;
@@ -83,5 +83,5 @@ export class CreateCustomerDto {
   nationality?: string;
 
   @IsNotEmpty()
-  licenceNo: string;
+  licenceNo!: string;
 }

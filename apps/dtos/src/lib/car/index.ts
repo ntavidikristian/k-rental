@@ -9,7 +9,7 @@ export class CarManufacturerFilter{
 
 export class CreateCarManufacturerDto {
   @IsNotEmpty()
-  name: string;
+  name!: string;
 }
 
 export class CarFilter {
@@ -25,16 +25,16 @@ export class CarFilter {
 export class CreateCarDto {
 
   @IsNotEmpty()
-  model: string;
+  model!: string;
 
   @IsNotEmpty()
-  manufacturerId: string;
+  manufacturerId!: string;
 
   @IsNotEmpty()
-  mileage: string;
+  mileage!: string;
 
   @IsNotEmpty()
-  registrationYear: number;
+  registrationYear!: number;
 
   @IsNotEmpty()
   manufactureYear?: number;
