@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { AuthGuard } from './common/auth.guard';
 
 export const appRoutes: Route[] = [
 
@@ -17,6 +18,7 @@ export const appRoutes: Route[] = [
     },
     {
         path:'cars',
+        canActivate: [AuthGuard],
         loadComponent: () => import('./features/car/car.component').then(x => x.CarComponent)
     },
     {

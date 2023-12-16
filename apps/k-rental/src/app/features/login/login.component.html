@@ -6,3 +6,9 @@
     <input type="password" name="password" [(ngModel)]="password">
     <button type="submit">submit</button>
 </form>
+
+
+
+authError {{authError$ | async | json}}
+<br>
+isAuthenticated: {{isAuthenticated$ | async}}
