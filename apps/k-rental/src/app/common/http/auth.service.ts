@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@angular/core";
-import { API_ENDPOINTS } from "./tokens/endpoints.token";
+import { API_ENDPOINTS } from "../tokens/endpoints.token";
 import { AuthToken, UserCredentials } from "@k-rental/dtos";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";

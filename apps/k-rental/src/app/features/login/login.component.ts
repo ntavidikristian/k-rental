@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../common/auth.service';
+import { AuthService } from '../../common/http/auth.service';
 import { Store } from '@ngrx/store';
 import { loginActions } from './store/login.actions';
 import { selectAuthError, selectIsAuthenticated } from '../../core/store/auth/auth.selectors';

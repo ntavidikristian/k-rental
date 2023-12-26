@@ -5,6 +5,7 @@ export const appRoutes: Route[] = [
 
     {
         path:'home',
+        canActivate: [AuthGuard],
         loadComponent: () => import('./features/home/home.component').then(x => x.HomeComponent)
     },
     {
@@ -14,6 +15,7 @@ export const appRoutes: Route[] = [
     },
     {
         path:'bookings',
+        canActivate: [AuthGuard],
         loadComponent: () => import('./features/booking/booking.component').then(x => x.BookingComponent)
     },
     {

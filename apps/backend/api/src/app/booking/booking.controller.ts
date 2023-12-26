@@ -7,13 +7,13 @@ import { AuthGuard } from "@nestjs/passport";
 import { BookingFilter, CreateBookingDto } from "@k-rental/dtos";
 
 @Controller('booking')
+@UseGuards(AuthGuard())
 export class BookingController{
 
     constructor(
         private bookingService: BookingService
     ){}
 
-    @UseGuards(AuthGuard())
     @Post()
     async createBooking(@Body() request: CreateBookingDto, @GetUser() user: User): Promise<Booking>{
         return await this.bookingService.createBooking(request, user.agent);

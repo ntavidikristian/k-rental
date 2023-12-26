@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { Customer } from "./entity/customer.entity";
 import { CustomerService } from "./customer.service";
 import { CreateCustomerDto } from "@k-rental/dtos";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('customer')
+@UseGuards(AuthGuard())
 export class CustomerController{
 
     constructor(

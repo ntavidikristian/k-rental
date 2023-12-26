@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BookingService } from '../../common/http/booking.service';
 
 @Component({
   selector: 'k-rental-booking',
@@ -8,4 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
 })
-export class BookingComponent {}
+export class BookingComponent {
+
+  protected bookings$ = inject(BookingService).getAllBookings();
+
+}

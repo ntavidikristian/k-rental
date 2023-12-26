@@ -6,6 +6,7 @@ import { CarManufacturer } from "./entities/car-manufacturer.entity";
 import { AuthGuard } from "@nestjs/passport";
 
 @Controller('car')
+@UseGuards(AuthGuard())
 export class CarController{
 
     constructor(
@@ -13,7 +14,6 @@ export class CarController{
     ){}
 
     @Get()
-    @UseGuards(AuthGuard())
     async getCars(@Query() carFilter: CarFilter): Promise<Car[]>{
         return await this.carService.getCars(carFilter);
     }
