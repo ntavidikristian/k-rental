@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 
 
 export class CarManufacturerFilter{
@@ -25,19 +25,20 @@ export class CarFilter {
 export class CreateCarDto {
 
   @IsNotEmpty()
-  model!: string;
+  model?: string | null;
 
   @IsNotEmpty()
-  manufacturerId!: string;
+  @IsUUID()
+  manufacturerId?: string | null;
 
   @IsNotEmpty()
-  mileage!: string;
+  mileage?: string | null;
 
   @IsNotEmpty()
-  registrationYear!: number;
+  registrationYear?: number | null;
 
   @IsNotEmpty()
-  manufactureYear?: number;
+  manufactureYear?: number | null;
 }
 
 

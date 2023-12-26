@@ -16,12 +16,12 @@ export const appRoutes: Route[] = [
     {
         path:'bookings',
         canActivate: [AuthGuard],
-        loadComponent: () => import('./features/booking/booking.component').then(x => x.BookingComponent)
+        loadChildren: () => import('./features/booking/booking.routes').then(x => x.BOOKING_ROUTES)
     },
     {
         path:'cars',
         canActivate: [AuthGuard],
-        loadComponent: () => import('./features/car/car.component').then(x => x.CarComponent)
+        loadChildren: () => import('./features/car/car.routes').then(x => x.CAR_ROUTES)
     },
     {
         path:'login',

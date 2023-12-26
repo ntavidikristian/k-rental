@@ -1,5 +1,6 @@
-<h2>Bookings</h2>
+<h4>Bookings!</h4>
 
+<a routerLink="./new">New booking</a>
 <ul>
     <li *ngFor="let booking of bookings$ | async">
         {{booking | json}}

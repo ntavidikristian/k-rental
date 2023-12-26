@@ -1,5 +1,6 @@
-<h2>Cars</h2>
+<h4>Car listing</h4>
 
+<a routerLink="./new">New car</a>
 <ul>
     <li *ngFor="let car of cars$ | async">
         {{car | json}}
