@@ -1,10 +1,48 @@
-<h4>Create new car</h4>
 
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <input type="text" formControlName="model" placeholder="model">
-    <input type="text" formControlName="manufacturerId" placeholder="manufacturer">
-    <input type="text" formControlName="mileage" placeholder="mileage">
-    <input type="number" formControlName="registrationYear" placeholder="registrationYear">
-    <input type="number" formControlName="manufactureYear" placeholder="manufactureYear">
-    <button (click)="submit()">submit</button>
-</form>
+<div class="main-container">
+    <h4>Create new car</h4>
+
+    <mat-card>
+        <mat-card-content>
+            <form class="d-grid" [formGroup]="form" (ngSubmit)="submit()">
+                <!-- * Model -->
+                <mat-form-field>
+                    <mat-label>Model</mat-label>
+                    <input matInput type="text" formControlName="model" placeholder="Mondeo">
+                </mat-form-field>
+
+                <!-- * Manufacturer -->
+                <mat-form-field>
+                    <mat-label>Manufacturer</mat-label>
+                    <input matInput type="text" formControlName="manufacturerId" placeholder="Ford">
+                </mat-form-field>
+
+                <!-- * Mileage -->
+                <mat-form-field>
+                    <mat-label>Mileage</mat-label>
+                    <input matInput type="text" formControlName="mileage" placeholder="28km">
+                </mat-form-field>
+
+                <div class="d-flex gap-1-rem">
+                    <!-- * Registration year -->
+                    <mat-form-field class="flex-grow-1">
+                        <mat-label>Registration year</mat-label>
+                        <input matInput type="number" formControlName="registrationYear" placeholder="2010">
+                    </mat-form-field>
+    
+                    <!-- * Manufacture year -->
+                    <mat-form-field class="flex-grow-1">
+                        <mat-label>Manufacture Year</mat-label>
+                        <input matInput type="number" formControlName="manufactureYear" placeholder="2014">
+                    </mat-form-field>
+                </div>
+                <div class="d-flex">
+                    <button class="ml-auto" mat-stroked-button (click)="submit()">submit</button>
+                </div>
+                
+            </form>
+        </mat-card-content>
+    </mat-card>
+    
+</div>
+

@@ -1,8 +1,15 @@
-<h4>Bookings!</h4>
+<div class="main-container">
 
-<a routerLink="./new">New booking</a>
-<ul>
-    <li *ngFor="let booking of bookings$ | async">
-        {{booking | json}}
-    </li>
-</ul>
+    <div class="d-flex">
+        <h4>Bookings!</h4>
+    
+        <a mat-raised-button class="ml-auto" routerLink="./new">New booking</a>
+    </div>
+    
+    <ul>
+        <li *ngFor="let booking of bookings$ | async">
+            {{booking | json}}
+        </li>
+    </ul>
+</div>
+

@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+
+body{
+    margin: 0;
+}
+
+.d-flex{
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+
+.d-grid{
+    display: grid;
+}
+
+.gap-1-rem{
+    gap: 1rem;
+}
+
+.gap-half-rem{
+    gap: .5rem;
+}
+
+.m-auto{
+    margin: auto;
+}
+.ml-auto{
+    margin-left: auto;
+}
+
+
+
+.main-container{
+    max-width: 1024px;
+    margin: auto;
+    padding: 1rem;
+}
+
+.flex-grow-1{
+    flex-grow: 1;
+}

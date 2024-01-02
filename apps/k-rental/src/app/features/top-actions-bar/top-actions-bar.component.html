@@ -1,0 +1,16 @@
+@if (authState.isAuthenticated()) {
+    <mat-toolbar @toolbarEnterInAnimation>
+        <nav class="d-flex gap-half-rem">
+            <a routerLink="home" mat-button> home</a>
+            <a routerLink="cars" mat-button> cars</a>
+            <a routerLink="bookings" mat-button> bookings</a>
+        </nav>
+
+
+        <button mat-button (click)="logout()" class="ml-auto">
+            logout
+        </button>
+    </mat-toolbar>
+    
+}
+

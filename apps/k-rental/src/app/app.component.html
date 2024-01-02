@@ -1,20 +1,8 @@
 
-<nav>
-    <li>
-        <a routerLink="home"> home</a>
-    </li>
-    <li>
-        <a routerLink="cars"> cars</a>
-    </li>
-    <li>
-        <a routerLink="login"> login</a>
-    </li>
-    <li>
-        <a routerLink="not-found"> not found</a>
-    </li>
-    <li>
-        <a routerLink="bookings"> bookings</a>
-    </li>
-</nav>
+@if (authState.isAuthenticated()) {
+    <k-rental-top-actions-bar/>
+}
+
+
 
 <router-outlet></router-outlet>

@@ -1,8 +1,14 @@
-<h4>Car listing</h4>
+<div class="main-container">
+    <div class="d-flex">
+        <h4>Car listing</h4>
+        <a class="ml-auto" mat-raised-button routerLink="./new">New car</a>
+    </div>
+    
+    <ul>
+        <li *ngFor="let car of cars$ | async">
+            {{car | json}}
+        </li>
+    </ul>
+</div>
 
-<a routerLink="./new">New car</a>
-<ul>
-    <li *ngFor="let car of cars$ | async">
-        {{car | json}}
-    </li>
-</ul>
+

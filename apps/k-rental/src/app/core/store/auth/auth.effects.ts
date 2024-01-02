@@ -15,8 +15,8 @@ export class AuthEffects {
             loginActions.login
         ),
         switchMap(
-            credentials => this.authService.login(credentials).pipe(
-                map(authToken => authActions.authSuccess({payload: authToken})),
+            ({ email, password }) => this.authService.login({email, password}).pipe(
+                map((authToken) => authActions.authSuccess({payload: authToken})),
                 tap(() => this.router.navigate(['/'])),
                 catchError((error: HttpErrorResponse) => of(authActions.authFailure({error: error.error})))
             )
